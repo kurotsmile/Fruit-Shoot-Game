@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	[Header("Panel Main")]
+	public IronSourceAds ads;
 	public GameObject panel_menu;
 	public GameObject panel_play;
 	public GameObject panel_gameover;
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour {
 
         this.carrot.Load_Carrot(this.check_exit_game);
 		this.carrot.act_after_close_all_box = this.reset_ui_game;
+		this.ads.On_Load();
+		this.carrot.act_buy_ads_success=this.ads.RemoveAds;
 		currentTime = startTime;
 
 		if (gm == null) gm = this.gameObject.GetComponent<GameManager>();
@@ -120,7 +123,7 @@ public class GameManager : MonoBehaviour {
 		this.score = 0;
 		mainScoreDisplay.text = "0";
 		this.shooter.enabled = true;
-		this.carrot.ads.show_ads_Interstitial();
+		this.ads.show_ads_Interstitial();
 		this.Obj_gameover_txt.SetActive(false);
 		currentTime = startTime;
 		this.mouse_looker.LockCursor(true);
@@ -134,7 +137,7 @@ public class GameManager : MonoBehaviour {
 	public void btn_game_back_home()
 	{
 		this.shooter.enabled = false;
-		this.carrot.ads.show_ads_Interstitial();
+		this.ads.show_ads_Interstitial();
 		this.is_play = false;
 		this.Obj_gameover_txt.SetActive(false);
 		this.mouse_looker.LockCursor(false);
